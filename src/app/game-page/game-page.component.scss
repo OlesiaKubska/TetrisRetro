@@ -1,0 +1,8 @@
+tetris-core {
+  tile {
+    background: white;
+    &.color-box {
+      background: #000000;
+    }
+  }
+}

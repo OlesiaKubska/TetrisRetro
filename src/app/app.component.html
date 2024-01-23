@@ -1,0 +1,5 @@
+<app-intro-page
+  *ngIf="!gameStarted"
+  (startGame)="startTheGame($event)"
+></app-intro-page>
+<app-game-page *ngIf="gameStarted" [playerName]="playerName"></app-game-page>
