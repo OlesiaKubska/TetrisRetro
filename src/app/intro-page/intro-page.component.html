@@ -9,11 +9,14 @@
         type="text"
         id="playerName"
         name="playerName"
-        ngModel
+        [(ngModel)]="playerName"
         required
-        #playerName="ngModel"
+        #playerNameInput="ngModel"
       />
-      <div *ngIf="playerName.invalid && playerName.touched" class="error">
+      <div
+        *ngIf="playerNameInput.invalid && playerNameInput.touched"
+        class="error"
+      >
         Please enter your name.
       </div>
     </div>
@@ -24,12 +27,15 @@
         type="email"
         id="playerEmail"
         name="playerEmail"
-        ngModel
+        [(ngModel)]="playerEmail"
         required
         email
-        #playerEmail="ngModel"
+        #playerEmailInput="ngModel"
       />
-      <div *ngIf="playerEmail.invalid && playerEmail.touched" class="error">
+      <div
+        *ngIf="playerEmailInput.invalid && playerEmailInput.touched"
+        class="error"
+      >
         Please enter a valid email address.
       </div>
     </div>

@@ -26,4 +26,9 @@ export class AppComponent {
     // Перемикання на ігрову сторінку
     this.gameStarted = true;
   }
+
+  handleExitGame() {
+    this.gameStarted = false;
+    // Тут можна додати додаткову логіку, якщо вона потрібна при виході з гри
+  }
 }

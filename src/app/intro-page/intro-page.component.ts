@@ -12,15 +12,9 @@ import { FormsModule } from '@angular/forms';
 export class IntroPageComponent {
   playerName: string = '';
   playerEmail: string = '';
-  formValid: boolean = false;
 
   // Використовуйте Output, щоб створити власну подію, яку можна буде "послухати" в батьківському компоненті
   @Output() startGame = new EventEmitter<{ name: string; email: string }>();
-
-  validateForm() {
-    this.formValid =
-      this.playerName.trim() !== '' && this.validateEmail(this.playerEmail);
-  }
 
   validateEmail(email: string): boolean {
     const re =
@@ -29,15 +23,9 @@ export class IntroPageComponent {
   }
 
   onSubmit() {
-    if (this.formValid) {
-      // Тут можна зберегти дані гравця та перейти до сторінки гри
-      console.log(
-        `Player Name: ${this.playerName}, Player Email: ${this.playerEmail}`
-      );
-      // Реалізуйте перехід до сторінки гри
+    if (this.playerName.trim() !== '' && this.validateEmail(this.playerEmail)) {
       this.startGame.emit({ name: this.playerName, email: this.playerEmail });
     } else {
-      // Показати помилку або повідомлення
       console.log('Form is not valid');
     }
   }
