@@ -1,11 +1,13 @@
 <div class="intro-page">
-  <h1>Welcome to Tetris-Retro!</h1>
+  <h1 class="title">TETRIS RETRO</h1>
+  <h2>Welcome to Tetris Retro!</h2>
   <p>Get ready to experience the classic game with a retro twist.</p>
 
   <form #playerForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="playerName">Player Name</label>
       <input
+        class="form-input"
         type="text"
         id="playerName"
         name="playerName"
@@ -24,6 +26,7 @@
     <div class="form-group">
       <label for="playerEmail">Player Email</label>
       <input
+        class="form-input"
         type="email"
         id="playerEmail"
         name="playerEmail"

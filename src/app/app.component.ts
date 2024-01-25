@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { CommonModule, NgIf } from '@angular/common';
 import { IntroPageComponent } from './intro-page/intro-page.component';
 import { GamePageComponent } from './game-page/game-page.component';
 import { TetrisCoreModule } from 'ngx-tetris';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',

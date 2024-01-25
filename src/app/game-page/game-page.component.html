@@ -1,5 +1,12 @@
-<div>Hello {{ playerName }}</div>
-<button class="game-button" (click)="exitGame()">Exit game</button>
+<div class="game-header">
+  <h2>Hello {{ playerName }}</h2>
+  <button class="game-button" (click)="exitGame()">Exit game</button>
+
+  <div class="score">
+    <p>Score: {{ points }}</p>
+    <p>Time played: {{ time }}</p>
+  </div>
+</div>
 
 <div class="game-container">
   <tetris-core
@@ -20,4 +27,26 @@
     <button class="game-button" (click)="onDownButtonPressed()">Down</button>
     <button class="game-button" (click)="onDropButtonPressed()">Drop</button>
   </div>
+</div>
+
+<div class="history-box">
+  <h2>Game history</h2>
+  <select class="history-select" [(ngModel)]="selectedFilter">
+    <option value="all">All</option>
+    <option value="started">Game Started</option>
+    <option value="paused">Game Paused</option>
+    <option value="lineCleared">Line Cleared</option>
+  </select>
+
+  <button class="history-button" (click)="sortByTimestamp()">
+    Sort By Timestamp
+  </button>
+
+  <div *ngFor="let entry of filteredHistory">
+    {{ entry.timestamp | date : "medium" }}: {{ entry.actionName }}
+  </div>
+  <app-history-modal
+    [history]="gameHistory"
+    [isVisible]="isHistoryModalVisible"
+  ></app-history-modal>
 </div>

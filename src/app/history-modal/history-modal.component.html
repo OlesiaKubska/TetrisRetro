@@ -1,0 +1,11 @@
+<div class="history-modal" *ngIf="isVisible">
+  <div class="history-content">
+    <h2>Game History</h2>
+    <button (click)="close()">Close</button>
+    <ul>
+      <li *ngFor="let entry of history">
+        {{ entry.timestamp | date : "medium" }}: {{ entry.actionName }}
+      </li>
+    </ul>
+  </div>
+</div>
