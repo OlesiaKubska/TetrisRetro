@@ -33,56 +33,17 @@
   }
 }
 
-.history-box {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
+.game-history-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
 
-  select {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: white;
-    font-size: 16px;
-    cursor: pointer;
-
-    appearance: none;
-    background-image: url("../../assets/chevron.svg");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 12px;
-
-    padding-right: 30px;
-
-    &:focus {
-      border-color: #4caf50;
-      outline: none;
-    }
-
-    option {
-      padding: 8px;
-    }
-  }
-
-  button {
-    background-color: #4caf50;
-    color: white;
-    padding: 8px 14px;
-    border: none;
-    border-radius: 4px;
-    margin-left: 8px;
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-      background-color: #66bb6a;
-    }
-  }
-
-  @media (min-width: 768px) {
-  }
-
-  @media (min-width: 1024px) {
+  &:hover,
+  &:focus {
+    background-color: #66bb6a;
   }
 }

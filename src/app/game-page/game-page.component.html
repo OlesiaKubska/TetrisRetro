@@ -26,27 +26,13 @@
     <button class="game-button" (click)="onRightButtonPressed()">Right</button>
     <button class="game-button" (click)="onDownButtonPressed()">Down</button>
     <button class="game-button" (click)="onDropButtonPressed()">Drop</button>
+
+    <button class="game-history-button" (click)="openHistoryModal()">
+      Show History
+    </button>
+    <app-history-modal
+      [history]="gameHistory"
+      [isVisible]="isHistoryModalVisible"
+    ></app-history-modal>
   </div>
-</div>
-
-<div class="history-box">
-  <h2>Game history</h2>
-  <select class="history-select" [(ngModel)]="selectedFilter">
-    <option value="all">All</option>
-    <option value="started">Game Started</option>
-    <option value="paused">Game Paused</option>
-    <option value="lineCleared">Line Cleared</option>
-  </select>
-
-  <button class="history-button" (click)="sortByTimestamp()">
-    Sort By Timestamp
-  </button>
-
-  <div *ngFor="let entry of filteredHistory">
-    {{ entry.timestamp | date : "medium" }}: {{ entry.actionName }}
-  </div>
-  <app-history-modal
-    [history]="gameHistory"
-    [isVisible]="isHistoryModalVisible"
-  ></app-history-modal>
 </div>

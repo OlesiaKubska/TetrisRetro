@@ -4,8 +4,6 @@ import {
   ViewChild,
   Output,
   EventEmitter,
-  OnInit,
-  OnDestroy,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -48,34 +46,42 @@ export class GamePageComponent {
 
   public onStopButtonPressed() {
     this.game.actionStop();
+    this.addHistoryEntry('Game Stoped');
   }
 
   public onStartButtonPressed() {
     this.game.actionStart();
+    this.addHistoryEntry('Game Started');
   }
 
   public onResetButtonPressed() {
     this.game.actionReset();
+    this.addHistoryEntry('Game Reset');
   }
 
   public onLeftButtonPressed() {
     this.game.actionLeft();
+    this.addHistoryEntry('Moved Left');
   }
 
   public onRightButtonPressed() {
     this.game.actionRight();
+    this.addHistoryEntry('Moved Right');
   }
 
   public onDownButtonPressed() {
     this.game.actionDown();
+    this.addHistoryEntry('Moved Down');
   }
 
   public onDropButtonPressed() {
     this.game.actionDrop();
+    this.addHistoryEntry('Dropped');
   }
 
   onLineCleared(): void {
     this.points += 100;
+    this.addHistoryEntry('Line Cleared');
   }
 
   onGameOver(): void {
@@ -95,25 +101,7 @@ export class GamePageComponent {
     this.gameHistory.push({ timestamp: new Date(), actionName: actionName });
   }
 
-  showHistory() {
-    if (this.gameHistory.length === 0) {
-      alert('History is empty.');
-    } else {
-      this.isHistoryModalVisible = true;
-    }
-  }
-
-  selectedFilter: string = 'all';
-
-  get filteredHistory() {
-    if (this.selectedFilter === 'all') {
-      return this.gameHistory;
-    }
-    return this.gameHistory.filter(
-      (entry) => entry.actionName === this.selectedFilter
-    );
-  }
-  sortByTimestamp() {
-    this.gameHistory = this.gameHistory.slice().reverse();
+  openHistoryModal() {
+    this.isHistoryModalVisible = true;
   }
 }
