@@ -27,7 +27,7 @@ export class GamePageComponent {
   points: number = 0;
   time: number = 0;
   private timerSubscription!: Subscription;
-  isHistoryModalVisible: boolean = false;
+  showModal: boolean = false;
   gameHistory: GameHistoryEntry[] = [];
 
   ngOnInit(): void {
@@ -102,6 +102,10 @@ export class GamePageComponent {
   }
 
   openHistoryModal() {
-    this.isHistoryModalVisible = true;
+    this.showModal = true;
+  }
+
+  onModalClose() {
+    this.showModal = false;
   }
 }

@@ -31,8 +31,9 @@
       Show History
     </button>
     <app-history-modal
+      *ngIf="showModal"
       [history]="gameHistory"
-      [isVisible]="isHistoryModalVisible"
+      (closeModal)="onModalClose()"
     ></app-history-modal>
   </div>
 </div>

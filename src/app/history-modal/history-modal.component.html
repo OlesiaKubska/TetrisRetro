@@ -1,25 +1,23 @@
-<div class="history-modal" *ngIf="isVisible">
+<div class="history-modal">
   <div class="history-content">
     <h3>Game History</h3>
     <select class="history-select" [(ngModel)]="selectedFilter">
       <option value="all">All</option>
-      <option value="started">Game Started</option>
-      <option value="stoped">Game Stoped</option>
-      <option value="lineCleared">Line Cleared</option>
-      <option value="reset">Game Reset</option>
-      <option value="movedLeft">Moved Left</option>
-      <option value="movedRight">Moved Right</option>
+      <option value="Game Started">Game Started</option>
+      <option value="Game Stoped">Game Stoped</option>
+      <option value="Line Cleared">Line Cleared</option>
+      <option value="Game Reset">Game Reset</option>
+      <option value="Moved Left">Moved Left</option>
+      <option value="Moved Right">Moved Right</option>
+      <option value="Moved Down">Moved Down</option>
+      <option value="Dropped">Dropped</option>
     </select>
 
-    <button class="history-button" (click)="sortByTimestamp()">
-      Timestamp
-    </button>
-
-    <ul class="history-list">
-      <li *ngFor="let entry of filteredHistory">
-        {{ entry.timestamp | date : "medium" }}: {{ entry.actionName }}
+    <ol class="history-list">
+      <li *ngFor="let entry of history | filter : selectedFilter">
+        {{ entry.timestamp | date : "short" }}: {{ entry.actionName }}
       </li>
-    </ul>
+    </ol>
     <button (click)="close()">Close</button>
   </div>
 </div>

@@ -1,35 +1,22 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { GameHistoryEntry } from '../game-page/models';
 import { FormsModule } from '@angular/forms';
+import { FilterPipe } from './filter.pipe';
 
 @Component({
   selector: 'app-history-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FilterPipe],
   templateUrl: './history-modal.component.html',
   styleUrl: './history-modal.component.scss',
 })
 export class HistoryModalComponent {
   @Input() history: any[] = [];
-  @Input() isVisible: boolean = false;
+  @Output() closeModal = new EventEmitter<void>();
 
-  selectedFilter: string = 'all';
-
-  get filteredHistory() {
-    if (this.selectedFilter === 'all') {
-      return this.history;
-    }
-    return this.history.filter(
-      (entry) => entry.actionName === this.selectedFilter
-    );
-  }
-
-  sortByTimestamp() {
-    this.history = [...this.history].reverse();
-  }
+  public selectedFilter = 'all';
 
   close() {
-    this.isVisible = false;
+    this.closeModal.emit();
   }
 }
