@@ -9,6 +9,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter([
       { path: 'intro', component: IntroPageComponent },
       { path: 'game', component: GamePageComponent },
+      { path: '**', redirectTo: 'intro' },
     ]),
     provideHttpClient(),
   ],

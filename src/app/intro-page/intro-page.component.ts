@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-intro-page',
@@ -13,7 +14,8 @@ export class IntroPageComponent {
   playerName: string = '';
   playerEmail: string = '';
 
-  // Використовуйте Output, щоб створити власну подію, яку можна буде "послухати" в батьківському компоненті
+  constructor(private router: Router) {}
+
   @Output() startGame = new EventEmitter<{ name: string; email: string }>();
 
   validateEmail(email: string): boolean {
@@ -25,6 +27,7 @@ export class IntroPageComponent {
   onSubmit() {
     if (this.playerName.trim() !== '' && this.validateEmail(this.playerEmail)) {
       this.startGame.emit({ name: this.playerName, email: this.playerEmail });
+      this.router.navigate(['/game']);
     } else {
       console.log('Form is not valid');
     }

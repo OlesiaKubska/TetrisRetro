@@ -3,6 +3,7 @@ import { IntroPageComponent } from './intro-page/intro-page.component';
 import { GamePageComponent } from './game-page/game-page.component';
 import { TetrisCoreModule } from 'ngx-tetris';
 import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
     TetrisCoreModule,
     IntroPageComponent,
     GamePageComponent,
+    RouterOutlet,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -23,12 +25,10 @@ export class AppComponent {
 
   startTheGame(data: { name: string; email: string }) {
     this.playerName = data.name;
-    // Перемикання на ігрову сторінку
     this.gameStarted = true;
   }
 
   handleExitGame() {
     this.gameStarted = false;
-    // Тут можна додати додаткову логіку, якщо вона потрібна при виході з гри
   }
 }

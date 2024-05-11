@@ -11,6 +11,7 @@ import { interval, Subscription } from 'rxjs';
 import { TetrisCoreModule, TetrisCoreComponent } from 'ngx-tetris';
 import { GameHistoryEntry } from './models';
 import { HistoryModalComponent } from '../history-modal/history-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-page',
@@ -29,6 +30,8 @@ export class GamePageComponent {
   private timerSubscription!: Subscription;
   showModal: boolean = false;
   gameHistory: GameHistoryEntry[] = [];
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.timerSubscription = interval(1000).subscribe(() => this.time++);
@@ -95,6 +98,7 @@ export class GamePageComponent {
     this.time = 0;
     this.points = 0;
     this.exitGameEvent.emit();
+    this.router.navigate(['/intro']);
   }
 
   addHistoryEntry(actionName: string) {
