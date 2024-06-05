@@ -1,0 +1,9 @@
+<div class="game-top">
+  <h3>Top 10 Highscores for {{ game }}</h3>
+  <button class="button-top" (click)="toggleSortOrder()">Toggle Sort</button>
+  <ol class="list-top">
+    <li *ngFor="let score of highscores">
+      {{ score.name }} - {{ score.score }}
+    </li>
+  </ol>
+</div>

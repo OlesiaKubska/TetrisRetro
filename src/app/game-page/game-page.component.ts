@@ -14,11 +14,18 @@ import { GameHistoryEntry } from './models';
 import { HistoryModalComponent } from '../history-modal/history-modal.component';
 import { Router } from '@angular/router';
 import { PlayerDataService } from '../player-data.service';
+import { HighscoresComponent } from '../highscores/highscores.component';
 
 @Component({
   selector: 'app-game-page',
   standalone: true,
-  imports: [CommonModule, TetrisCoreModule, FormsModule, HistoryModalComponent],
+  imports: [
+    CommonModule,
+    TetrisCoreModule,
+    FormsModule,
+    HistoryModalComponent,
+    HighscoresComponent,
+  ],
   templateUrl: './game-page.component.html',
   styleUrl: './game-page.component.scss',
 })

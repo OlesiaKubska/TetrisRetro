@@ -4,6 +4,8 @@ import { GamePageComponent } from './game-page/game-page.component';
 import { TetrisCoreModule } from 'ngx-tetris';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { HighscoresComponent } from './highscores/highscores.component';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +16,8 @@ import { RouterOutlet } from '@angular/router';
     IntroPageComponent,
     GamePageComponent,
     RouterOutlet,
+    HighscoresComponent,
+    HttpClientModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
