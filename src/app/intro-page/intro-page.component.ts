@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PlayerDataService } from '../player-data.service';
 
 @Component({
   selector: 'app-intro-page',
@@ -14,7 +15,10 @@ export class IntroPageComponent {
   playerName: string = '';
   playerEmail: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private playerDataService: PlayerDataService
+  ) {}
 
   @Output() startGame = new EventEmitter<{ name: string; email: string }>();
 
@@ -24,8 +28,9 @@ export class IntroPageComponent {
     return re.test(String(email).toLowerCase());
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.playerName.trim() !== '' && this.validateEmail(this.playerEmail)) {
+      this.playerDataService.setPlayerData(this.playerName, this.playerEmail);
       this.startGame.emit({ name: this.playerName, email: this.playerEmail });
       this.router.navigate(['/game']);
     } else {

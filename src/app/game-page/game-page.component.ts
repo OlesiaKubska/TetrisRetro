@@ -4,6 +4,7 @@ import {
   ViewChild,
   Output,
   EventEmitter,
+  OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -12,6 +13,7 @@ import { TetrisCoreModule, TetrisCoreComponent } from 'ngx-tetris';
 import { GameHistoryEntry } from './models';
 import { HistoryModalComponent } from '../history-modal/history-modal.component';
 import { Router } from '@angular/router';
+import { PlayerDataService } from '../player-data.service';
 
 @Component({
   selector: 'app-game-page',
@@ -20,7 +22,7 @@ import { Router } from '@angular/router';
   templateUrl: './game-page.component.html',
   styleUrl: './game-page.component.scss',
 })
-export class GamePageComponent {
+export class GamePageComponent implements OnInit {
   @Input() playerName: string = '';
   @ViewChild('game') game!: TetrisCoreComponent;
   @Output() exitGameEvent = new EventEmitter<void>();
@@ -31,10 +33,14 @@ export class GamePageComponent {
   showModal: boolean = false;
   gameHistory: GameHistoryEntry[] = [];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private playerDataService: PlayerDataService
+  ) {}
 
   ngOnInit(): void {
     this.timerSubscription = interval(1000).subscribe(() => this.time++);
+    this.playerName = this.playerDataService.getPlayerName();
   }
 
   ngOnDestroy(): void {
