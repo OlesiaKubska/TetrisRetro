@@ -1,4 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  SimpleChanges,
+  OnChanges,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HighscoresService } from '../highscores.service';
 
@@ -9,32 +15,46 @@ import { HighscoresService } from '../highscores.service';
   templateUrl: './highscores.component.html',
   styleUrl: './highscores.component.scss',
 })
-export class HighscoresComponent implements OnInit {
-  @Input()
-  game!: string;
+export class HighscoresComponent implements OnInit, OnChanges {
+  @Input() game!: string;
   highscores: any[] = [];
   sortOrder: boolean = true;
 
-  constructor(private highscoresService: HighscoresService) {}
+  constructor(private _highscoresService: HighscoresService) {}
 
   ngOnInit(): void {
-    this.loadHighscores();
+    if (this.game) {
+      this.loadHighscores();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['game'] && changes['game'].currentValue) {
+      this.loadHighscores();
+    }
   }
 
   loadHighscores(): void {
-    this.highscoresService.getHighscores(this.game).subscribe((scores) => {
-      this.highscores = scores;
-      this.sortScores();
+    this._highscoresService.getHighscores(this.game).subscribe({
+      next: (scores) => {
+        console.log('Received scores:', scores);
+        if (Array.isArray(scores)) {
+          this.highscores = this.sortScores(scores);
+        } else {
+          console.error('Received data is not an array', scores);
+        }
+      },
+      error: (error) => console.error('Failed to load highscores:', error),
     });
   }
 
   toggleSortOrder(): void {
     this.sortOrder = !this.sortOrder;
-    this.sortScores();
+    this.highscores = this.sortScores(this.highscores);
   }
 
-  sortScores(): void {
-    this.highscores.sort((a, b) =>
+  private sortScores(scores: any[]): any[] {
+    return scores.sort((a, b) =>
       this.sortOrder ? b.score - a.score : a.score - b.score
     );
   }

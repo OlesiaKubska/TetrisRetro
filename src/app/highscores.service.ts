@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-interface Highscore {
-  name: string;
-  score: number;
-}
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Highscore } from './definitions';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -16,13 +12,22 @@ export class HighscoresService {
 
   constructor(private _http: HttpClient) {}
 
-  getHighscores(game: string): Observable<Highscore[]> {
+  // public getHighscores(game: string) {
+  //   const URL = 'https://scores.chrum.it/scores';
+
+  //   return this._http.get<Array<Highscore>>(`${URL}/${game}`);
+  // }
+
+  public getHighscores(game: string): Observable<Highscore[]> {
     return this._http
-      .get<Highscore[]>(`${this.baseUrl}/${game}`)
+      .get<Highscore[]>(`${this.baseUrl}/${game}`, {
+        headers: { Accept: 'application/json' },
+      })
       .pipe(
-        map((response) =>
-          response.sort((a, b) => b.score - a.score).slice(0, 10)
-        )
+        catchError((error) => {
+          console.error(`Error fetching highscores: ${error.message}`, error);
+          return throwError(() => new Error('Failed to fetch highscores'));
+        })
       );
   }
 }
