@@ -51,8 +51,8 @@ export class GamePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.timerSubscription = interval(1000).subscribe(() => this.time++);
-    this.playerName = this._playerDataService.getPlayerName();
-    this.studentToken = this._playerDataService.getStudentToken();
+    this.playerName = this._playerDataService.getPlayerName() || '';
+    this.studentToken = this._playerDataService.getStudentToken() || '';
 
     this._route.paramMap.subscribe((params) => {
       const colors = params.get('colors');

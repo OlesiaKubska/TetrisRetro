@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { TokenValidationService } from '../token-validation.service';
   templateUrl: './intro-page.component.html',
   styleUrl: './intro-page.component.scss',
 })
-export class IntroPageComponent {
+export class IntroPageComponent implements OnInit {
   playerName: string = '';
   studentToken: string = '';
   errorMessage: string = '';
@@ -25,6 +25,10 @@ export class IntroPageComponent {
   ) {}
 
   @Output() startGame = new EventEmitter<{ name: string; token: string }>();
+
+  ngOnInit(): void {
+    this._playerDataService.clearPlayerData();
+  }
 
   onSubmit(): void {
     if (this.playerName.trim() !== '' && this.studentToken.trim() !== '') {

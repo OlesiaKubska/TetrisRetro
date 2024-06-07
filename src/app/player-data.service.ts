@@ -4,21 +4,51 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class PlayerDataService {
-  private playerName: string = '';
-  private studentToken: string = '';
+  private playerNameKey = 'playerName';
+  private studentTokenKey = 'studentToken';
 
-  constructor() {}
+  // constructor() {}
 
-  setPlayerData(name: string, token: string): void {
-    this.playerName = name;
-    this.studentToken = token;
+  private isLocalStorageAvailable(): boolean {
+    try {
+      const test = 'test';
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
-  getPlayerName(): string {
-    return this.playerName;
+  setPlayerData(playerName: string, studentToken: string): void {
+    if (this.isLocalStorageAvailable()) {
+      localStorage.setItem(this.playerNameKey, playerName);
+      localStorage.setItem(this.studentTokenKey, studentToken);
+    }
   }
 
-  getStudentToken(): string {
-    return this.studentToken;
+  getPlayerName(): string | null {
+    if (this.isLocalStorageAvailable()) {
+      return localStorage.getItem(this.playerNameKey);
+    }
+    return null;
+  }
+
+  getStudentToken(): string | null {
+    if (this.isLocalStorageAvailable()) {
+      return localStorage.getItem(this.studentTokenKey);
+    }
+    return null;
+  }
+
+  clearPlayerData(): void {
+    if (this.isLocalStorageAvailable()) {
+      localStorage.removeItem(this.playerNameKey);
+      localStorage.removeItem(this.studentTokenKey);
+    }
+  }
+
+  hasPlayerData(): boolean {
+    return !!this.getPlayerName() && !!this.getStudentToken();
   }
 }
