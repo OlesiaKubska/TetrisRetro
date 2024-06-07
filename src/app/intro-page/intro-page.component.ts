@@ -13,11 +13,11 @@ import { PlayerDataService } from '../player-data.service';
 })
 export class IntroPageComponent {
   playerName: string = '';
-  playerEmail: string = '';
+  studentToken: string = '';
 
   constructor(
-    private router: Router,
-    private playerDataService: PlayerDataService
+    private _router: Router,
+    private _playerDataService: PlayerDataService
   ) {}
 
   @Output() startGame = new EventEmitter<{ name: string; email: string }>();
@@ -29,10 +29,10 @@ export class IntroPageComponent {
   }
 
   onSubmit(): void {
-    if (this.playerName.trim() !== '' && this.validateEmail(this.playerEmail)) {
-      this.playerDataService.setPlayerData(this.playerName, this.playerEmail);
-      this.startGame.emit({ name: this.playerName, email: this.playerEmail });
-      this.router.navigate(['/game']);
+    if (this.playerName.trim() !== '' && this.studentToken.trim() !== '') {
+      this._playerDataService.setPlayerData(this.playerName, this.studentToken);
+      this.startGame.emit({ name: this.playerName, email: this.studentToken });
+      this._router.navigate(['/game']);
     } else {
       console.log('Form is not valid');
     }

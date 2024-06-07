@@ -5,20 +5,20 @@ import { Injectable } from '@angular/core';
 })
 export class PlayerDataService {
   private playerName: string = '';
-  private playerEmail: string = '';
+  private studentToken: string = '';
 
   constructor() {}
 
-  setPlayerData(name: string, email: string): void {
+  setPlayerData(name: string, token: string): void {
     this.playerName = name;
-    this.playerEmail = email;
+    this.studentToken = token;
   }
 
   getPlayerName(): string {
     return this.playerName;
   }
 
-  getPlayerEmail(): string {
-    return this.playerEmail;
+  getStudentToken(): string {
+    return this.studentToken;
   }
 }

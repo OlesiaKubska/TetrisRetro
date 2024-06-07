@@ -31,6 +31,7 @@ import { HighscoresComponent } from '../highscores/highscores.component';
 })
 export class GamePageComponent implements OnInit {
   @Input() playerName: string = '';
+  @Input() studentToken: string = '';
   @ViewChild('game') game!: TetrisCoreComponent;
   @Output() exitGameEvent = new EventEmitter<void>();
 
@@ -42,13 +43,14 @@ export class GamePageComponent implements OnInit {
   showHighscoresModal: boolean = false;
 
   constructor(
-    private router: Router,
-    private playerDataService: PlayerDataService
+    private _router: Router,
+    private _playerDataService: PlayerDataService
   ) {}
 
   ngOnInit(): void {
     this.timerSubscription = interval(1000).subscribe(() => this.time++);
-    this.playerName = this.playerDataService.getPlayerName();
+    this.playerName = this._playerDataService.getPlayerName();
+    this.studentToken = this._playerDataService.getStudentToken();
   }
 
   ngOnDestroy(): void {
@@ -112,7 +114,7 @@ export class GamePageComponent implements OnInit {
     this.time = 0;
     this.points = 0;
     this.exitGameEvent.emit();
-    this.router.navigate(['/intro']);
+    this._router.navigate(['/intro']);
   }
 
   addHistoryEntry(actionName: string) {

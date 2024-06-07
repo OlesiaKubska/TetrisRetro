@@ -24,22 +24,21 @@
     </div>
 
     <div class="form-group">
-      <label for="playerEmail">Player Email</label>
+      <label for="studentToken">Student ID</label>
       <input
         class="form-input"
-        type="email"
-        id="playerEmail"
-        name="playerEmail"
-        [(ngModel)]="playerEmail"
+        type="text"
+        id="studentToken"
+        name="studentToken"
+        [(ngModel)]="studentToken"
         required
-        email
-        #playerEmailInput="ngModel"
+        #studentTokenInput="ngModel"
       />
       <div
-        *ngIf="playerEmailInput.invalid && playerEmailInput.touched"
+        *ngIf="studentTokenInput.invalid && studentTokenInput.touched"
         class="error"
       >
-        Please enter a valid email address.
+        Please enter your student ID.
       </div>
     </div>
 
