@@ -8,6 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1001;
 }
 
 .history-content {
@@ -15,39 +16,45 @@
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
 
-  select {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: white;
-    font-size: 16px;
-    cursor: pointer;
-    padding-right: 30px;
+.close-button-history {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #333;
+  line-height: 1;
+}
 
-    &:focus {
-      border-color: #4caf50;
-      outline: none;
-    }
+.close-button-history:hover {
+  color: red;
+}
 
-    option {
-      padding: 8px;
-    }
+.history-title {
+  margin-top: 30px;
+}
+
+.history-select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding-right: 30px;
+
+  &:focus {
+    border-color: #4caf50;
+    outline: none;
   }
 
-  button {
-    background-color: #4caf50;
-    color: white;
-    padding: 8px 14px;
-    border: none;
-    border-radius: 8px;
-    margin-left: 8px;
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-      background-color: #66bb6a;
-    }
+  option {
+    padding: 8px;
   }
 }
 

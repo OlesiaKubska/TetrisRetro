@@ -39,6 +39,7 @@ export class GamePageComponent implements OnInit {
   private timerSubscription!: Subscription;
   showModal: boolean = false;
   gameHistory: GameHistoryEntry[] = [];
+  showHighscoresModal: boolean = false;
 
   constructor(
     private router: Router,
@@ -124,5 +125,13 @@ export class GamePageComponent implements OnInit {
 
   onModalClose() {
     this.showModal = false;
+  }
+
+  openHighscoresModal() {
+    this.showHighscoresModal = true;
+  }
+
+  onHighscoresModalClose() {
+    this.showHighscoresModal = false;
   }
 }

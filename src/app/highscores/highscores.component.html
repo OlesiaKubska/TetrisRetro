@@ -1,9 +1,14 @@
-<div>
-  <h2>Highscores for {{ game }}</h2>
-  <button (click)="toggleSortOrder()">Toggle Sort</button>
-  <ul>
-    <li *ngFor="let score of highscores">
-      {{ score.name }} - {{ score.score }}
-    </li>
-  </ul>
+<div class="top-modal">
+  <div class="top-container">
+    <button class="close-button" (click)="close()">&times;</button>
+    <h3 class="top-title">Highscores for {{ game }}</h3>
+    <button class="button-top" (click)="toggleSortOrder()">
+      Sort: {{ sortOrder ? "Descending" : "Ascending" }}
+    </button>
+    <ol class="top-list">
+      <li *ngFor="let score of highscores">
+        {{ score.name }} - {{ score.score }}
+      </li>
+    </ol>
+  </div>
 </div>

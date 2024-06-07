@@ -1,26 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Highscore } from './definitions';
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HighscoresService {
-  private baseUrl = 'https://scores.chrum.it/scores';
-
   constructor(private _http: HttpClient) {}
 
-  // public getHighscores(game: string) {
-  //   const URL = 'https://scores.chrum.it/scores';
+  public getHighscores(game: string) {
+    const URL = 'https://scores.chrum.it/scores';
 
-  //   return this._http.get<Array<Highscore>>(`${URL}/${game}`);
-  // }
-
-  public getHighscores(game: string): Observable<Highscore[]> {
     return this._http
-      .get<Highscore[]>(`${this.baseUrl}/${game}`, {
+      .get<Highscore[]>(`${URL}/${game}`, {
         headers: { Accept: 'application/json' },
       })
       .pipe(

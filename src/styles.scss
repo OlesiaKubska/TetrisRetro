@@ -1,4 +1,109 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  font-family: "Roboto", sans-serif;
+  color: #000000;
+  font-size: 14px;
+  line-height: 1.6;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.8)
+    ),
+    url("./assets/imeges/tetris_background_grid.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.button,
+button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 0.35rem;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background-color: #4caf50;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: #66bb6a;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 90%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: 1rem;
+  }
+
+  .button,
+  button {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    font-size: 18px;
+  }
+
+  .container {
+    max-width: 85%;
+  }
+
+  .button,
+  button {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.25rem;
+  }
+}
+
 tetris-core {
   &.black-and-white {
     tile {
@@ -28,5 +133,87 @@ tetris-core {
         background: #000000;
       }
     }
+  }
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"] {
+  padding: 8px 12px;
+  border: 1px solid #4caf50;
+  border-radius: 8px;
+  width: 50%;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: darkgreen;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 255, 0, 0.25);
+  }
+
+  &::placeholder {
+    color: #888;
+  }
+
+  &:disabled {
+    background-color: #e9ecef;
+    color: #495057;
+  }
+
+  &:invalid {
+    border-color: red;
+  }
+}
+
+@media (min-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="number"] {
+    padding: 10px 12px;
+    font-size: 16px;
+  }
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darkgreen;
+  }
+
+  &:active {
+    background-color: #66bb6a;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+@media (min-width: 1024px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="number"] {
+    padding: 12px 14px;
+    font-size: 18px;
   }
 }

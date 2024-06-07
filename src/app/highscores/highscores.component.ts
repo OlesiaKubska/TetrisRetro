@@ -4,6 +4,8 @@ import {
   Input,
   SimpleChanges,
   OnChanges,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HighscoresService } from '../highscores.service';
@@ -17,6 +19,7 @@ import { HighscoresService } from '../highscores.service';
 })
 export class HighscoresComponent implements OnInit, OnChanges {
   @Input() game!: string;
+  @Output() closeModal = new EventEmitter<void>();
   highscores: any[] = [];
   sortOrder: boolean = true;
 
@@ -54,8 +57,12 @@ export class HighscoresComponent implements OnInit, OnChanges {
   }
 
   private sortScores(scores: any[]): any[] {
-    return scores.sort((a, b) =>
-      this.sortOrder ? b.score - a.score : a.score - b.score
-    );
+    return scores
+      .sort((a, b) => (this.sortOrder ? b.score - a.score : a.score - b.score))
+      .slice(0, 10);
+  }
+
+  close() {
+    this.closeModal.emit();
   }
 }

@@ -1,41 +1,60 @@
-<div class="game-header">
-  <h2>Hello {{ playerName }}</h2>
-  <button class="game-button" (click)="exitGame()">Exit game</button>
+<div class="container">
+  <div class="game-header">
+    <div class="game-box">
+      <h2>Hello {{ playerName }}</h2>
+      <div class="score">
+        <p>Score: {{ points }}</p>
+        <p>Time played: {{ time }}</p>
+      </div>
+    </div>
 
-  <div class="score">
-    <p>Score: {{ points }}</p>
-    <p>Time played: {{ time }}</p>
+    <div class="game-box">
+      <button class="game-button" (click)="exitGame()">Exit game</button>
+
+      <button class="game-history-button" (click)="openHistoryModal()">
+        Show History
+      </button>
+      <app-history-modal
+        *ngIf="showModal"
+        [history]="gameHistory"
+        (closeModal)="onModalClose()"
+      ></app-history-modal>
+
+      <button class="game-history-button" (click)="openHighscoresModal()">
+        Highscores
+      </button>
+      <app-highscores
+        [game]="'tetris'"
+        *ngIf="showHighscoresModal"
+        (closeModal)="onHighscoresModalClose()"
+      ></app-highscores>
+    </div>
   </div>
-</div>
 
-<app-highscores [game]="'tetris'"></app-highscores>
+  <div class="game-container">
+    <tetris-core
+      #game
+      (lineCleared)="onLineCleared()"
+      (gameOver)="onGameOver()"
+    ></tetris-core>
 
-<div class="game-container">
-  <tetris-core
-    #game
-    (lineCleared)="onLineCleared()"
-    (gameOver)="onGameOver()"
-  ></tetris-core>
-
-  <div class="controls">
-    <button class="game-button" (click)="onStartButtonPressed()">Start</button>
-    <button class="game-button" (click)="onStopButtonPressed()">Stop</button>
-    <button class="game-button" (click)="onResetButtonPressed()">Reset</button>
-    <button class="game-button" (click)="onRotateButtonPressed()">
-      Rotate
-    </button>
-    <button class="game-button" (click)="onLeftButtonPressed()">Left</button>
-    <button class="game-button" (click)="onRightButtonPressed()">Right</button>
-    <button class="game-button" (click)="onDownButtonPressed()">Down</button>
-    <button class="game-button" (click)="onDropButtonPressed()">Drop</button>
-
-    <button class="game-history-button" (click)="openHistoryModal()">
-      Show History
-    </button>
-    <app-history-modal
-      *ngIf="showModal"
-      [history]="gameHistory"
-      (closeModal)="onModalClose()"
-    ></app-history-modal>
+    <div class="controls">
+      <button class="game-button" (click)="onStartButtonPressed()">
+        Start
+      </button>
+      <button class="game-button" (click)="onStopButtonPressed()">Stop</button>
+      <button class="game-button" (click)="onResetButtonPressed()">
+        Reset
+      </button>
+      <button class="game-button" (click)="onRotateButtonPressed()">
+        Rotate
+      </button>
+      <button class="game-button" (click)="onLeftButtonPressed()">Left</button>
+      <button class="game-button" (click)="onRightButtonPressed()">
+        Right
+      </button>
+      <button class="game-button" (click)="onDownButtonPressed()">Down</button>
+      <button class="game-button" (click)="onDropButtonPressed()">Drop</button>
+    </div>
   </div>
 </div>
