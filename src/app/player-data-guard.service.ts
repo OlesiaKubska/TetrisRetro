@@ -13,19 +13,3 @@ export const playerDataGuard: CanActivateFn = () => {
     return false;
   }
 };
-
-// export class PlayerDataGuardService implements CanActivate {
-//   constructor(
-//     private _playerDataService: PlayerDataService,
-//     private _router: Router
-//   ) {}
-
-//   canActivate(): boolean {
-//     if (this._playerDataService.hasPlayerData()) {
-//       return true;
-//     } else {
-//       this._router.navigate(['/intro']);
-//       return false;
-//     }
-//   }
-// }

@@ -5,6 +5,7 @@ import {
   Output,
   EventEmitter,
   OnInit,
+  OnDestroy,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -15,6 +16,8 @@ import { HistoryModalComponent } from '../history-modal/history-modal.component'
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlayerDataService } from '../player-data.service';
 import { HighscoresComponent } from '../highscores/highscores.component';
+import { ScoresService } from '../scores.service';
+import { MyScoresComponent } from '../my-scores/my-scores.component';
 
 @Component({
   selector: 'app-game-page',
@@ -25,6 +28,7 @@ import { HighscoresComponent } from '../highscores/highscores.component';
     FormsModule,
     HistoryModalComponent,
     HighscoresComponent,
+    MyScoresComponent,
   ],
   templateUrl: './game-page.component.html',
   styleUrl: './game-page.component.scss',
@@ -46,7 +50,8 @@ export class GamePageComponent implements OnInit {
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
-    private _playerDataService: PlayerDataService
+    private _playerDataService: PlayerDataService,
+    private _scoresService: ScoresService
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +63,23 @@ export class GamePageComponent implements OnInit {
       const colors = params.get('colors');
       this.highContrast = colors === 'high-contrast';
     });
+  }
+
+  onGameOver(): void {
+    this.timerSubscription.unsubscribe();
+    this.time = 0;
+    alert('Game Over! Better luck next time.');
+
+    this._scoresService
+      .submitScore(this.playerName, 'tetris', this.points, this.studentToken)
+      .subscribe({
+        next: (response) => {
+          console.log('Score submitted successfully', response);
+        },
+        error: (error) => {
+          console.error('Error submitting score', error);
+        },
+      });
   }
 
   ngOnDestroy(): void {
@@ -108,13 +130,6 @@ export class GamePageComponent implements OnInit {
   onLineCleared(): void {
     this.points += 100;
     this.addHistoryEntry('Line Cleared');
-  }
-
-  onGameOver(): void {
-    this.timerSubscription.unsubscribe();
-    this.time = 0;
-    this.points = 0;
-    alert('Game Over! Better luck next time.');
   }
 
   exitGame() {

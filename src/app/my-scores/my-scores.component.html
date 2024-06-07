@@ -1,0 +1,7 @@
+<div>
+  <h2>My Scores</h2>
+  <button (click)="toggleSortOrder()">Toggle Sort Order</button>
+  <ul>
+    <li *ngFor="let score of myScores">{{ score.name }} - {{ score.score }}</li>
+  </ul>
+</div>

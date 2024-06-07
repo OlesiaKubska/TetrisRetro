@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { HighscoresComponent } from './highscores/highscores.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MyScoresComponent } from './my-scores/my-scores.component';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +20,8 @@ import { HighscoresComponent } from './highscores/highscores.component';
     RouterOutlet,
     HighscoresComponent,
     HttpClientModule,
+    ReactiveFormsModule,
+    MyScoresComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

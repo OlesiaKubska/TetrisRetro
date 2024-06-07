@@ -10,6 +10,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter([
       { path: 'intro', component: IntroPageComponent },
       {
+        path: 'game',
+        component: GamePageComponent,
+        canActivate: [playerDataGuard],
+      },
+      {
         path: 'game/:colors',
         component: GamePageComponent,
         canActivate: [playerDataGuard],

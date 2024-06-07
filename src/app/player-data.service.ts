@@ -7,8 +7,6 @@ export class PlayerDataService {
   private playerNameKey = 'playerName';
   private studentTokenKey = 'studentToken';
 
-  // constructor() {}
-
   private isLocalStorageAvailable(): boolean {
     try {
       const test = 'test';

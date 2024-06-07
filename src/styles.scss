@@ -185,3 +185,18 @@ input[type="reset"] {
     font-size: 18px;
   }
 }
+
+.high-contrast {
+  background-color: black;
+  color: white;
+
+  .form-input {
+    background-color: black;
+    color: white;
+  }
+
+  .start-game-btn {
+    background-color: yellow;
+    color: black;
+  }
+}
