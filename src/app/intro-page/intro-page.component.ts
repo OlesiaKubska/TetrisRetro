@@ -16,6 +16,7 @@ export class IntroPageComponent {
   playerName: string = '';
   studentToken: string = '';
   errorMessage: string = '';
+  colorPalette: string = 'normal';
 
   constructor(
     private _router: Router,
@@ -38,7 +39,7 @@ export class IntroPageComponent {
               name: this.playerName,
               token: this.studentToken,
             });
-            this._router.navigate(['/game']);
+            this._router.navigate(['/game', this.colorPalette]);
           } else {
             this.errorMessage =
               'Invalid token. Please enter a valid student ID.';

@@ -42,6 +42,19 @@
       </div>
     </div>
 
+    <div class="form-group">
+      <label for="colorPalette">Color Palette</label>
+      <select
+        class="form-select"
+        id="colorPalette"
+        name="colorPalette"
+        [(ngModel)]="colorPalette"
+      >
+        <option value="normal">Normal</option>
+        <option value="high-contrast">High Contrast</option>
+      </select>
+    </div>
+
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
     <button

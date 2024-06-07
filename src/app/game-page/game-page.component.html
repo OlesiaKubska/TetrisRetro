@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container game-page" [ngClass]="{ 'high-contrast': highContrast }">
   <div class="game-header">
     <div class="game-box">
       <h2>Hello {{ playerName }}</h2>
@@ -6,6 +6,13 @@
         <p>Score: {{ points }}</p>
         <p>Time played: {{ time }}</p>
       </div>
+
+      <select (change)="switchColorPalette($event)">
+        <option value="normal" [selected]="!highContrast">Normal</option>
+        <option value="high-contrast" [selected]="highContrast">
+          High Contrast
+        </option>
+      </select>
     </div>
 
     <div class="game-box">

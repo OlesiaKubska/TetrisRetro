@@ -12,7 +12,7 @@ import { interval, Subscription } from 'rxjs';
 import { TetrisCoreModule, TetrisCoreComponent } from 'ngx-tetris';
 import { GameHistoryEntry } from './models';
 import { HistoryModalComponent } from '../history-modal/history-modal.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PlayerDataService } from '../player-data.service';
 import { HighscoresComponent } from '../highscores/highscores.component';
 
@@ -41,9 +41,11 @@ export class GamePageComponent implements OnInit {
   showModal: boolean = false;
   gameHistory: GameHistoryEntry[] = [];
   showHighscoresModal: boolean = false;
+  highContrast: boolean = false;
 
   constructor(
     private _router: Router,
+    private _route: ActivatedRoute,
     private _playerDataService: PlayerDataService
   ) {}
 
@@ -51,6 +53,11 @@ export class GamePageComponent implements OnInit {
     this.timerSubscription = interval(1000).subscribe(() => this.time++);
     this.playerName = this._playerDataService.getPlayerName();
     this.studentToken = this._playerDataService.getStudentToken();
+
+    this._route.paramMap.subscribe((params) => {
+      const colors = params.get('colors');
+      this.highContrast = colors === 'high-contrast';
+    });
   }
 
   ngOnDestroy(): void {
@@ -135,5 +142,11 @@ export class GamePageComponent implements OnInit {
 
   onHighscoresModalClose() {
     this.showHighscoresModal = false;
+  }
+
+  switchColorPalette(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const palette = selectElement.value;
+    this._router.navigate(['/game', palette]);
   }
 }
