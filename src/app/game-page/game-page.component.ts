@@ -1,11 +1,9 @@
 import {
   Component,
-  Input,
   ViewChild,
   Output,
   EventEmitter,
   OnInit,
-  OnDestroy,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -34,8 +32,8 @@ import { MyScoresComponent } from '../my-scores/my-scores.component';
   styleUrl: './game-page.component.scss',
 })
 export class GamePageComponent implements OnInit {
-  @Input() playerName: string = '';
-  @Input() studentToken: string = '';
+  playerName: string = '';
+  studentToken: string = '';
   @ViewChild('game') game!: TetrisCoreComponent;
   @Output() exitGameEvent = new EventEmitter<void>();
 
