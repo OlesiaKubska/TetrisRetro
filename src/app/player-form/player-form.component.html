@@ -30,6 +30,19 @@
   </div>
 
   <div class="form-group">
+    <label for="studentId">Student ID:</label>
+    <input id="studentId" formControlName="studentId" type="text" />
+  </div>
+  <div
+    *ngIf="
+      playerForm.get('studentId')?.invalid &&
+      playerForm.get('studentId')?.touched
+    "
+  >
+    <small>Student ID is required.</small>
+  </div>
+
+  <div class="form-group">
     <label for="color">Color Palette</label>
     <select id="color" formControlName="color" (change)="onColorChange()">
       <option *ngFor="let color of colors" [value]="color">{{ color }}</option>

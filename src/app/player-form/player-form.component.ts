@@ -1,7 +1,12 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-player-form',
@@ -10,11 +15,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './player-form.component.html',
   styleUrl: './player-form.component.scss',
 })
-export class PlayerFormComponent {
+export class PlayerFormComponent implements OnInit {
   @Output() startGame = new EventEmitter<{
     playerName: string;
     authCode: string;
     color: string;
+    studentId: string;
   }>();
 
   colors = ['normal', 'high-contrast'];
@@ -26,7 +32,17 @@ export class PlayerFormComponent {
     playerName: ['', [Validators.required, Validators.minLength(5)]],
     authCode: ['', [Validators.required, Validators.minLength(5)]],
     color: ['normal', Validators.required],
+    studentId: ['', Validators.required],
   });
+
+  ngOnInit(): void {
+    const savedPlayerName = localStorage.getItem('playerName');
+    const savedColor = localStorage.getItem('color') || 'normal';
+    if (savedPlayerName) {
+      this.playerForm.patchValue({ playerName: savedPlayerName });
+    }
+    this.playerForm.patchValue({ color: savedColor });
+  }
 
   onSubmit(): void {
     if (this.playerForm.valid) {

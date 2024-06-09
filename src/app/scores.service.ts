@@ -1,26 +1,47 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-// import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Score } from './definitions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScoresService {
-  private URL = 'https://scores.chrum.it';
-
   constructor(private _http: HttpClient) {}
 
-  submitScore(name: string, game: string, score: number, authToken: string) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'auth-token': authToken,
-    });
-    const body = { name, game, score };
-    return this._http.post(`${this.URL}/scores`, body, { headers });
+  public getMyScores(name: string, game: string) {
+    const URL = 'https://scores.chrum.it/scores';
+    return this._http
+      .get<Score[]>(`${URL}?name=${name}&game=${game}`, {
+        headers: { Accept: 'application/json' },
+      })
+      .pipe(
+        catchError((error) => {
+          console.error(`Error fetching highscores: ${error.message}`, error);
+          return throwError(() => new Error('Failed to fetch highscores'));
+        })
+      );
   }
 
-  public getMyScores(game: string) {
-    return this._http.get<Score[]>(`${this.URL}/scores/${game}`);
+  public submitScore(
+    name: string,
+    game: string,
+    score: number,
+    token: string
+  ): Observable<any> {
+    const URL = 'https://scores.chrum.it/scores';
+    const body = { name, game, score };
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'auth-token': token,
+    });
+
+    return this._http.post(URL, body, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error submitting score', error);
+        return throwError(() => new Error('Failed to submit score'));
+      })
+    );
   }
 }

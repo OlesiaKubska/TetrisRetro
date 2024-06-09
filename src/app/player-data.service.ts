@@ -7,43 +7,22 @@ export class PlayerDataService {
   private playerNameKey = 'playerName';
   private studentTokenKey = 'studentToken';
 
-  private isLocalStorageAvailable(): boolean {
-    try {
-      const test = 'test';
-      localStorage.setItem(test, test);
-      localStorage.removeItem(test);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
   setPlayerData(playerName: string, studentToken: string): void {
-    if (this.isLocalStorageAvailable()) {
-      localStorage.setItem(this.playerNameKey, playerName);
-      localStorage.setItem(this.studentTokenKey, studentToken);
-    }
+    localStorage.setItem(this.playerNameKey, playerName);
+    localStorage.setItem(this.studentTokenKey, studentToken);
   }
 
   getPlayerName(): string | null {
-    if (this.isLocalStorageAvailable()) {
-      return localStorage.getItem(this.playerNameKey);
-    }
-    return null;
+    return localStorage.getItem(this.playerNameKey);
   }
 
   getStudentToken(): string | null {
-    if (this.isLocalStorageAvailable()) {
-      return localStorage.getItem(this.studentTokenKey);
-    }
-    return null;
+    return localStorage.getItem(this.studentTokenKey);
   }
 
   clearPlayerData(): void {
-    if (this.isLocalStorageAvailable()) {
-      localStorage.removeItem(this.playerNameKey);
-      localStorage.removeItem(this.studentTokenKey);
-    }
+    localStorage.removeItem(this.playerNameKey);
+    localStorage.removeItem(this.studentTokenKey);
   }
 
   hasPlayerData(): boolean {

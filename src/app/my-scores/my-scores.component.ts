@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScoresService } from '../scores.service';
 import { PlayerDataService } from '../player-data.service';
 import { interval, Subscription } from 'rxjs';
+import { Score } from '../definitions';
+// import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-my-scores',
@@ -11,9 +13,9 @@ import { interval, Subscription } from 'rxjs';
   templateUrl: './my-scores.component.html',
   styleUrl: './my-scores.component.scss',
 })
-export class MyScoresComponent implements OnInit {
-  @Input() game!: string;
-  myScores: any[] = [];
+export class MyScoresComponent implements OnInit, OnDestroy {
+  @Input() game: string = 'tetris';
+  myScores: Score[] = [];
   sortOrder: boolean = true;
   private updateSubscription!: Subscription;
 
@@ -29,31 +31,19 @@ export class MyScoresComponent implements OnInit {
     );
   }
 
-  ngOnDestroy(): void {
-    if (this.updateSubscription) {
-      this.updateSubscription.unsubscribe();
-    }
-  }
-
   loadMyScores(): void {
     const playerName = this._playerDataService.getPlayerName();
     if (playerName) {
-      this._scoresService.getMyScores(this.game).subscribe({
+      this._scoresService.getMyScores(playerName, this.game).subscribe({
         next: (scores) => {
           console.log('Received scores:', scores);
-          if (Array.isArray(scores)) {
-            this.myScores = scores.filter((score) => score.name === playerName);
-            this.sortScores();
-          } else {
-            console.error('Received data is not an array:', scores);
-          }
+          this.myScores = scores.filter((score) => score.name === playerName);
+          this.sortScores();
         },
         error: (error) => {
           console.error('Error loading scores:', error);
         },
       });
-    } else {
-      console.warn('No player name available in local storage.');
     }
   }
 
@@ -62,9 +52,15 @@ export class MyScoresComponent implements OnInit {
     this.sortScores();
   }
 
-  private sortScores(): void {
+  sortScores(): void {
     this.myScores.sort((a, b) =>
       this.sortOrder ? b.score - a.score : a.score - b.score
     );
+  }
+
+  ngOnDestroy(): void {
+    if (this.updateSubscription) {
+      this.updateSubscription.unsubscribe();
+    }
   }
 }
