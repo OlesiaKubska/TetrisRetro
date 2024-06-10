@@ -1,7 +1,22 @@
 <div>
   <h2>My Scores</h2>
-  <button (click)="toggleSortOrder()">Toggle Sort Order</button>
-  <ul>
-    <li *ngFor="let score of myScores">{{ score.name }} - {{ score.score }}</li>
-  </ul>
+  <button (click)="toggleSortOrder()">
+    Sort by score: {{ sortOrder === "asc" ? "Descending" : "Ascending" }}
+  </button>
+  <table>
+    <thead>
+      <tr>
+        <th>Player Name</th>
+        <th>Game</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let score of myScores">
+        <td>{{ score.name }}</td>
+        <td>{{ score.game }}</td>
+        <td>{{ score.score }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -10,12 +10,20 @@ import { Score } from './definitions';
 export class ScoresService {
   constructor(private _http: HttpClient) {}
 
-  public getMyScores(name: string, game: string) {
-    const URL = 'https://scores.chrum.it/scores';
+  private URL = 'https://scores.chrum.it/scores';
+
+  public getMyScores(
+    name: string,
+    game: string,
+    token: string
+  ): Observable<Score[]> {
+    const headers = new HttpHeaders({
+      Accept: 'application/json',
+      'auth-token': token,
+    });
+
     return this._http
-      .get<Score[]>(`${URL}?name=${name}&game=${game}`, {
-        headers: { Accept: 'application/json' },
-      })
+      .get<Score[]>(`${this.URL}?name=${name}&game=${game}`, { headers })
       .pipe(
         catchError((error) => {
           console.error(`Error fetching highscores: ${error.message}`, error);
@@ -30,14 +38,15 @@ export class ScoresService {
     score: number,
     token: string
   ): Observable<any> {
-    const URL = 'https://scores.chrum.it/scores';
     const body = { name, game, score };
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'auth-token': token,
     });
 
-    return this._http.post(URL, body, { headers }).pipe(
+    console.log('Submitting score with token:', token);
+
+    return this._http.post(this.URL, body, { headers }).pipe(
       catchError((error) => {
         console.error('Error submitting score', error);
         return throwError(() => new Error('Failed to submit score'));

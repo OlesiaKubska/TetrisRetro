@@ -2,44 +2,27 @@
   <div class="form-group">
     <label for="playerName">Player Name</label>
     <input type="text" id="playerName" formControlName="playerName" />
-    <div
-      *ngIf="
-        playerForm.get('playerName')?.invalid &&
-        playerForm.get('playerName')?.touched
-      "
-    >
-      <small class="error"
-        >Player name is required and must be at least 5 characters long.</small
+    <div *ngIf="playerName?.invalid && playerName?.touched">
+      <small *ngIf="playerName?.errors?.['required']"
+        >Player name is required.</small
+      >
+      <small *ngIf="playerName?.errors?.['minlength']"
+        >Player name must be at least 5 characters long.</small
       >
     </div>
   </div>
 
   <div class="form-group">
-    <label for="authCode">Auth Code</label>
+    <label for="authCode">Student ID</label>
     <input type="text" id="authCode" formControlName="authCode" />
-    <div
-      *ngIf="
-        playerForm.get('authCode')?.invalid &&
-        playerForm.get('authCode')?.touched
-      "
-    >
-      <small class="error"
-        >Auth code is required and must be at least 5 characters long.</small
+    <div *ngIf="authCode?.invalid && authCode?.touched">
+      <small *ngIf="authCode?.errors?.['required']"
+        >Student ID is required.</small
+      >
+      <small *ngIf="authCode?.errors?.['minlength']"
+        >Student ID must be at least 5 characters long.</small
       >
     </div>
-  </div>
-
-  <div class="form-group">
-    <label for="studentId">Student ID:</label>
-    <input id="studentId" formControlName="studentId" type="text" />
-  </div>
-  <div
-    *ngIf="
-      playerForm.get('studentId')?.invalid &&
-      playerForm.get('studentId')?.touched
-    "
-  >
-    <small>Student ID is required.</small>
   </div>
 
   <div class="form-group">
@@ -52,4 +35,12 @@
   <button type="submit" class="start-game-btn" [disabled]="playerForm.invalid">
     Start Game
   </button>
+
+  <!-- Example element that changes based on the color selection -->
+  <div
+    id="color-sensitive-element"
+    [ngStyle]="{ color: selectedColor === 'high-contrast' ? 'black' : 'gray' }"
+  >
+    This element changes color
+  </div>
 </form>

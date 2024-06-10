@@ -35,7 +35,7 @@ import { MyScoresComponent } from '../my-scores/my-scores.component';
 })
 export class GamePageComponent implements OnInit, OnDestroy {
   @Input() playerName: string = '';
-  @Input() studentToken: string = '';
+  @Input() authCode: string = '';
   @ViewChild('game') game!: TetrisCoreComponent;
   @Output() exitGameEvent = new EventEmitter<void>();
 
@@ -57,7 +57,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.timerSubscription = interval(1000).subscribe(() => this.time++);
     this.playerName = this._playerDataService.getPlayerName() || '';
-    this.studentToken = this._playerDataService.getStudentToken() || '';
+    this.authCode = this._playerDataService.getStudentToken() || '';
 
     this._route.paramMap.subscribe((params) => {
       const colors = params.get('colors');
@@ -66,18 +66,17 @@ export class GamePageComponent implements OnInit, OnDestroy {
   }
 
   onGameOver(): void {
-    this.timerSubscription.unsubscribe();
-    this.time = 0;
-    alert('Game Over! Better luck next time.');
-
+    console.log('Submitting score with token:', this.authCode);
     this._scoresService
-      .submitScore(this.playerName, 'tetris', this.points, this.studentToken)
+      .submitScore(this.playerName, 'tetris', this.points, this.authCode)
       .subscribe({
         next: (response) => {
-          console.log('Score submitted successfully', response);
+          console.log('Score submitted successfully:', response);
+          // Refresh the scores or navigate to the scores page
         },
         error: (error) => {
-          console.error('Error submitting score', error);
+          console.error('Error submitting score:', error);
+          alert('Failed to submit score. Please try again.');
         },
       });
   }

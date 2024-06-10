@@ -8,3 +8,7 @@ export interface Score {
   game: string;
   score: number;
 }
+
+export interface TokenValidationResponse {
+  success: boolean;
+}

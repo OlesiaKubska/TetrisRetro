@@ -23,26 +23,21 @@ export class IntroPageComponent implements OnInit {
     this._playerDataService.clearPlayerData();
   }
 
-  onStartGame(data: {
-    playerName: string;
-    authCode: string;
-    color: string;
-    studentId: string;
-  }) {
-    this._tokenValidationService.validateToken(data.studentId).subscribe({
-      next: (response) => {
-        if (response.success) {
+  onStartGame(data: { playerName: string; authCode: string; color: string }) {
+    console.log('Submitting token for validation:', data.authCode);
+    this._tokenValidationService.validateToken(data.authCode).subscribe({
+      next: (response: { success: boolean }) => {
+        console.log('Token validation response:', response);
+        if (response && response.success) {
           this._playerDataService.setPlayerData(data.playerName, data.authCode);
-          localStorage.setItem('playerName', data.playerName);
-          localStorage.setItem('color', data.color);
           this._router.navigate(['/game', { colors: data.color }]);
         } else {
-          alert('Invalid Student ID');
+          alert('Invalid token. Please try again.');
         }
       },
       error: (error) => {
-        console.error('Token validation failed', error);
-        alert('Error validating Student ID');
+        console.error('Token validation error:', error);
+        alert('Error validating token. Please try again later.');
       },
     });
   }
