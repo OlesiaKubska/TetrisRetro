@@ -36,8 +36,8 @@ export class PlayerDataService {
   getStudentToken(): string | null {
     if (this.isLocalStorageAvailable()) {
       const token = localStorage.getItem(this.authCodeKey);
-      // console.log('Retrieved token:', token);
-      // return token;
+      console.log('Retrieved token:', token);
+      return token;
     }
     return null;
   }

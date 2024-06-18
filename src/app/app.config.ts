@@ -14,11 +14,11 @@ export const appConfig: ApplicationConfig = {
         component: GamePageComponent,
         canActivate: [playerDataGuard],
       },
-      {
-        path: 'game/:colors',
-        component: GamePageComponent,
-        canActivate: [playerDataGuard],
-      },
+      // {
+      //   path: 'game/:colors',
+      //   component: GamePageComponent,
+      //   canActivate: [playerDataGuard],
+      // },
       { path: '**', redirectTo: 'intro' },
     ]),
     provideHttpClient(),

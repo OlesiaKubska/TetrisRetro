@@ -4,4 +4,7 @@
   <h4>Get ready to experience the classic game with a retro twist.</h4>
 
   <app-player-form (startGame)="onStartGame($event)"></app-player-form>
+
+  <div *ngIf="isLoading">Validating token, please wait...</div>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 </div>

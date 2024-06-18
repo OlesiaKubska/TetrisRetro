@@ -13,6 +13,9 @@ import { TokenValidationService } from '../token-validation.service';
   styleUrl: './intro-page.component.scss',
 })
 export class IntroPageComponent implements OnInit {
+  isLoading = false;
+  errorMessage = '';
+
   constructor(
     private _router: Router,
     private _playerDataService: PlayerDataService,
@@ -24,20 +27,26 @@ export class IntroPageComponent implements OnInit {
   }
 
   onStartGame(data: { playerName: string; authCode: string; color: string }) {
+    this.isLoading = true;
+    this.errorMessage = '';
     console.log('Submitting token for validation:', data.authCode);
+
     this._tokenValidationService.validateToken(data.authCode).subscribe({
-      next: (response: { success: boolean }) => {
+      next: (response) => {
+        this.isLoading = false;
         console.log('Token validation response:', response);
-        if (response && response.success) {
+
+        if (response.success) {
           this._playerDataService.setPlayerData(data.playerName, data.authCode);
           this._router.navigate(['/game', { colors: data.color }]);
         } else {
-          alert('Invalid token. Please try again.');
+          this.errorMessage = 'Invalid token. Please try again.';
         }
       },
       error: (error) => {
+        this.isLoading = false;
         console.error('Token validation error:', error);
-        alert('Error validating token. Please try again later.');
+        this.errorMessage = 'Error validating token. Please try again later.';
       },
     });
   }

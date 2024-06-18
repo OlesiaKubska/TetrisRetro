@@ -7,6 +7,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { TokenValidationService } from '../token-validation.service';
 
 @Component({
   selector: 'app-player-form',
@@ -24,10 +25,14 @@ export class PlayerFormComponent {
 
   colors = ['normal', 'high-contrast'];
   selectedColor: string = 'normal';
-
   playerForm: FormGroup;
+  isLoading = false;
+  errorMessage = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private tokenValidationService: TokenValidationService
+  ) {
     this.playerForm = this.fb.group({
       playerName: ['', [Validators.required, Validators.minLength(5)]],
       authCode: ['', [Validators.required, Validators.minLength(5)]],
@@ -36,26 +41,31 @@ export class PlayerFormComponent {
   }
 
   ngOnInit(): void {
-    if (this.isLocalStorageAvailable()) {
-      const savedPlayerName = localStorage.getItem('playerName');
-      const savedColor = localStorage.getItem('color') || 'normal';
-      if (savedPlayerName) {
-        this.playerForm.patchValue({ playerName: savedPlayerName });
-      }
-      this.playerForm.patchValue({ color: savedColor });
-      this.onColorChange();
-    }
+    this.loadFormData();
   }
 
   onSubmit(): void {
     if (this.playerForm.valid) {
       const { playerName, authCode, color } = this.playerForm.value;
       console.log('Submitting token for validation:', authCode);
-      this.startGame.emit({ playerName, authCode, color });
-      if (this.isLocalStorageAvailable()) {
-        localStorage.setItem('playerName', playerName);
-        localStorage.setItem('color', color);
-      }
+      this.isLoading = true;
+      this.tokenValidationService.validateToken(authCode).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          console.log('Token validation response:', response);
+          if (response.success) {
+            this.startGame.emit({ playerName, authCode, color });
+            this.saveFormData(playerName, color);
+          } else {
+            this.errorMessage = 'Invalid token. Please try again.';
+          }
+        },
+        error: (error) => {
+          this.isLoading = false;
+          console.error('Token validation error:', error);
+          this.errorMessage = 'Error validating token. Please try again later.';
+        },
+      });
     } else {
       this.playerForm.markAllAsTouched();
     }
@@ -78,6 +88,25 @@ export class PlayerFormComponent {
 
   get authCode() {
     return this.playerForm.get('authCode');
+  }
+
+  private loadFormData(): void {
+    if (this.isLocalStorageAvailable()) {
+      const savedPlayerName = localStorage.getItem('playerName');
+      const savedColor = localStorage.getItem('color') || 'normal';
+      if (savedPlayerName) {
+        this.playerForm.patchValue({ playerName: savedPlayerName });
+      }
+      this.playerForm.patchValue({ color: savedColor });
+      this.onColorChange();
+    }
+  }
+
+  private saveFormData(playerName: string, color: string): void {
+    if (this.isLocalStorageAvailable()) {
+      localStorage.setItem('playerName', playerName);
+      localStorage.setItem('color', color);
+    }
   }
 
   private isLocalStorageAvailable(): boolean {

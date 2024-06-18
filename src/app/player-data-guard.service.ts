@@ -19,13 +19,4 @@ export class playerDataGuard implements CanActivate {
       return false;
     }
   }
-  // const playerDataService = inject(PlayerDataService);
-  // const router = inject(Router);
-
-  // if (playerDataService.hasPlayerData()) {
-  //   return true;
-  // } else {
-  //   router.navigate(['/intro']);
-  //   return false;
-  // }
 }
