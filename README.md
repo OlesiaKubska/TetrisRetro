@@ -43,3 +43,16 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - Updated styles to support high contrast mode across the project.
 
 This commit enhances accessibility by allowing users to easily switch to a high contrast mode for better visibility and ensures consistent styling across the project.
+
+## 🔧 Technologies Used
+- **Angular CLI**: Version 17.0.1 for project generation and development tools.
+- **ngx-tetris**: Library for integrating Tetris game functionality.
+- **@Input** and **@Output**: For component communication.
+- **Pipes**: For transforming data in templates.
+- **ngModel**: For two-way data binding.
+- **\*ngIf** and **\*ngFor**: For conditional rendering and looping in templates.
+- **Reactive Forms**: For building forms with validation.
+- **HttpClient**: For making HTTP requests.
+- **Routing**: For navigation between Intro and Game pages.
+- **Services**: For managing and sharing state across components.
+- **Guards**: For protecting routes and managing access.
