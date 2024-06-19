@@ -11,7 +11,7 @@ export class PlayerDataService {
     if (this.isLocalStorageAvailable()) {
       localStorage.setItem(this.playerNameKey, playerName);
       localStorage.setItem(this.authCodeKey, authCode);
-      console.log('Token set:', authCode);
+      // console.log('Token set:', authCode);
     }
   }
 
@@ -36,7 +36,7 @@ export class PlayerDataService {
   getStudentToken(): string | null {
     if (this.isLocalStorageAvailable()) {
       const token = localStorage.getItem(this.authCodeKey);
-      console.log('Retrieved token:', token);
+      // console.log('Retrieved token:', token);
       return token;
     }
     return null;

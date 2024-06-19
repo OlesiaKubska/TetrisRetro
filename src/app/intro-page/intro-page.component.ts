@@ -29,12 +29,12 @@ export class IntroPageComponent implements OnInit {
   onStartGame(data: { playerName: string; authCode: string; color: string }) {
     this.isLoading = true;
     this.errorMessage = '';
-    console.log('Submitting token for validation:', data.authCode);
+    // console.log('Submitting token for validation:', data.authCode);
 
     this._tokenValidationService.validateToken(data.authCode).subscribe({
       next: (response) => {
         this.isLoading = false;
-        console.log('Token validation response:', response);
+        // console.log('Token validation response:', response);
 
         if (response.success) {
           this._playerDataService.setPlayerData(data.playerName, data.authCode);

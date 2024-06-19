@@ -38,13 +38,14 @@ export class ScoresService {
     score: number,
     token: string
   ): Observable<any> {
-    const body = { name, game, score };
+    const validScore = Math.max(score, 1);
+    const body = { name, game, score: validScore };
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'auth-token': token,
     });
 
-    console.log('Submitting score with token:', token);
+    // console.log('Submitting score with token:', token);
 
     return this._http.post(this.URL, body, { headers }).pipe(
       catchError((error) => {

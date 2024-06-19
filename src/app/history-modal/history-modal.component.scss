@@ -19,26 +19,6 @@
   position: relative;
 }
 
-.close-button-history {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #333;
-  line-height: 1;
-}
-
-.close-button-history:hover {
-  color: red;
-}
-
-.history-title {
-  margin-top: 30px;
-}
-
 .history-select {
   padding: 8px 12px;
   border: 1px solid #ccc;
@@ -56,9 +36,4 @@
   option {
     padding: 8px;
   }
-}
-
-.history-list {
-  max-height: 200px;
-  overflow-y: auto;
 }

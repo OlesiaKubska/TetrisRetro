@@ -46,6 +46,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
   gameHistory: GameHistoryEntry[] = [];
   showHighscoresModal: boolean = false;
   highContrast: boolean = false;
+  showMyScoresModal: boolean = false;
 
   constructor(
     private _router: Router,
@@ -66,13 +67,18 @@ export class GamePageComponent implements OnInit, OnDestroy {
   }
 
   onGameOver(): void {
-    console.log('Submitting score with token:', this.authCode);
+    alert('Game Over!');
+
     this._scoresService
-      .submitScore(this.playerName, 'tetris', this.points, this.authCode)
+      .submitScore(
+        this.playerName,
+        'tetris',
+        Math.max(this.points, 1),
+        this.authCode
+      )
       .subscribe({
         next: (response) => {
           console.log('Score submitted successfully:', response);
-          // Refresh the scores or navigate to the scores page
         },
         error: (error) => {
           console.error('Error submitting score:', error);
@@ -158,9 +164,19 @@ export class GamePageComponent implements OnInit, OnDestroy {
     this.showHighscoresModal = false;
   }
 
-  switchColorPalette(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    const palette = selectElement.value;
-    this._router.navigate(['/game', palette]);
+  openMyScoresModal() {
+    this.showMyScoresModal = true;
+  }
+  onMyScoresModalClose() {
+    this.showMyScoresModal = false;
+  }
+
+  // switchColorPalette(event: Event) {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   const palette = selectElement.value;
+  //   this._router.navigate(['/game', palette]);
+  // }
+  switchColorPalette() {
+    this.highContrast = !this.highContrast;
   }
 }

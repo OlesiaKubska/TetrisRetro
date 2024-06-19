@@ -1,22 +1,14 @@
-<div>
-  <h2>My Scores</h2>
-  <button (click)="toggleSortOrder()">
-    Sort by score: {{ sortOrder === "asc" ? "Descending" : "Ascending" }}
-  </button>
-  <table>
-    <thead>
-      <tr>
-        <th>Player Name</th>
-        <th>Game</th>
-        <th>Score</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let score of myScores">
-        <td>{{ score.name }}</td>
-        <td>{{ score.game }}</td>
-        <td>{{ score.score }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="my-scores-modal">
+  <div class="my-scores-content">
+    <button class="close-button-modal" (click)="close()">&times;</button>
+    <h2 class="modal-title">My Scores</h2>
+    <button class="button-modal" (click)="toggleSortOrder()">
+      Sort by score: {{ sortOrder === "asc" ? "Descending" : "Ascending" }}
+    </button>
+    <ol class="modal-list">
+      <li *ngFor="let score of myScores">
+        {{ score.name }} - {{ score.score }}
+      </li>
+    </ol>
+  </div>
 </div>

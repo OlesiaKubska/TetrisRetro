@@ -63,6 +63,36 @@ h6 {
   padding: 20px;
 }
 
+.modal-title {
+  margin-top: 30px;
+}
+
+.modal-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.close-button-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #333;
+  line-height: 1;
+}
+
+.close-button-modal:hover {
+  color: green;
+  background: transparent;
+}
+
+.modal-list {
+  margin-top: 20px;
+}
+
 @media (min-width: 768px) {
   body {
     font-size: 16px;
@@ -135,6 +165,37 @@ input[type="number"] {
   }
 }
 
+@media (max-width: 767px) {
+  body {
+    font-size: 10px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .button,
+  button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="number"] {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+}
+
 @media (min-width: 768px) {
   input[type="text"],
   input[type="email"],
@@ -198,5 +259,41 @@ input[type="reset"] {
   .start-game-btn {
     background-color: yellow;
     color: black;
+  }
+
+  .my-scores-modal,
+  .top-modal,
+  .history-modal {
+    background: rgba(0, 0, 0, 0.8) !important;
+  }
+
+  .my-scores-content,
+  .top-container,
+  .history-content {
+    background: gray !important;
+    color: white !important;
+  }
+
+  .close-button-modal {
+    color: white !important;
+  }
+
+  .close-button-modal:hover {
+    color: yellow !important;
+  }
+
+  .modal-title,
+  .modal-list {
+    color: yellow !important;
+  }
+
+  .button-modal {
+    background-color: white;
+    color: black;
+    border: 1px solid yellow;
+  }
+
+  .button-modal:hover {
+    background-color: yellow;
   }
 }

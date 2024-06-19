@@ -1,11 +1,17 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnDestroy,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScoresService } from '../scores.service';
 import { PlayerDataService } from '../player-data.service';
-import { interval, Subscription } from 'rxjs';
+import { interval } from 'rxjs';
 import { Score } from '../definitions';
 import { switchMap } from 'rxjs/operators';
-// import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-my-scores',
@@ -19,10 +25,7 @@ export class MyScoresComponent implements OnInit {
   sortOrder: 'asc' | 'desc' = 'asc';
   playerName: string = '';
   authCode: string = '';
-  // @Input() game: string = 'tetris';
-  // myScores: Score[] = [];
-  // sortOrder: boolean = true;
-  // private updateSubscription!: Subscription;
+  @Output() closeModal = new EventEmitter<void>();
 
   constructor(
     private _scoresService: ScoresService,
@@ -70,9 +73,7 @@ export class MyScoresComponent implements OnInit {
     });
   }
 
-  // ngOnDestroy(): void {
-  //   if (this.updateSubscription) {
-  //     this.updateSubscription.unsubscribe();
-  //   }
-  // }
+  close() {
+    this.closeModal.emit();
+  }
 }

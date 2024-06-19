@@ -1,7 +1,7 @@
 <div class="history-modal">
   <div class="history-content">
-    <button class="close-button-history" (click)="close()">&times;</button>
-    <h3 class="history-title">Game History</h3>
+    <button class="close-button-modal" (click)="close()">&times;</button>
+    <h3 class="modal-title">Game History</h3>
     <select class="history-select" [(ngModel)]="selectedFilter">
       <option value="all">All</option>
       <option value="Game Started">Game Started</option>
@@ -14,7 +14,7 @@
       <option value="Dropped">Dropped</option>
     </select>
 
-    <ol class="history-list">
+    <ol class="modal-list">
       <li *ngFor="let entry of history | filter : selectedFilter">
         {{ entry.timestamp | date : "short" }}: {{ entry.actionName }}
       </li>

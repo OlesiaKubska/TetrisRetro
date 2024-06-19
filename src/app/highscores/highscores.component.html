@@ -1,11 +1,11 @@
 <div class="top-modal">
   <div class="top-container">
-    <button class="close-button" (click)="close()">&times;</button>
-    <h3 class="top-title">Highscores for {{ game }}</h3>
-    <button class="button-top" (click)="toggleSortOrder()">
+    <button class="close-button-modal" (click)="close()">&times;</button>
+    <h3 class="modal-title">Highscores for {{ game }}</h3>
+    <button class="button-modal" (click)="toggleSortOrder()">
       Sort: {{ sortOrder ? "Descending" : "Ascending" }}
     </button>
-    <ol class="top-list">
+    <ol class="modal-list">
       <li *ngFor="let score of highscores">
         {{ score.name }} - {{ score.score }}
       </li>

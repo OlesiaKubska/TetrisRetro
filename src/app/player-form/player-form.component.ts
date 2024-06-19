@@ -35,7 +35,7 @@ export class PlayerFormComponent {
   ) {
     this.playerForm = this.fb.group({
       playerName: ['', [Validators.required, Validators.minLength(5)]],
-      authCode: ['', [Validators.required, Validators.minLength(5)]],
+      authCode: ['', [Validators.required, Validators.minLength(4)]],
       color: ['normal', Validators.required],
     });
   }
@@ -47,12 +47,12 @@ export class PlayerFormComponent {
   onSubmit(): void {
     if (this.playerForm.valid) {
       const { playerName, authCode, color } = this.playerForm.value;
-      console.log('Submitting token for validation:', authCode);
+      // console.log('Submitting token for validation:', authCode);
       this.isLoading = true;
       this.tokenValidationService.validateToken(authCode).subscribe({
         next: (response) => {
           this.isLoading = false;
-          console.log('Token validation response:', response);
+          // console.log('Token validation response:', response);
           if (response.success) {
             this.startGame.emit({ playerName, authCode, color });
             this.saveFormData(playerName, color);

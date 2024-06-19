@@ -12,21 +12,16 @@ export class TokenValidationService {
   constructor(private http: HttpClient) {}
 
   validateToken(token: string): Observable<TokenValidationResponse> {
-    // Tymczasowa modyfikacja do celów testowych
-    // Zawsze zwracamy sukces
-    return of({ success: true });
-
-    // Oryginalna logika:
-    //   const myHeaders = new HttpHeaders({
-    //     'Content-Type': 'application/json',
-    //   });
-    //   const body = { 'auth-token': token };
-    //   // console.log('Sending request to validate token:', body);
-    //   return this.http
-    //     .post<TokenValidationResponse>(this.apiUrl, body, {
-    //       headers: myHeaders,
-    //     })
-    //     .pipe(catchError(this.handleError));
+    const myHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    const body = { 'auth-token': token };
+    // console.log('Sending request to validate token:', body);
+    return this.http
+      .post<TokenValidationResponse>(this.apiUrl, body, {
+        headers: myHeaders,
+      })
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: any): Observable<never> {

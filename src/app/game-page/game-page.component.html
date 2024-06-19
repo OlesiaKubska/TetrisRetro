@@ -7,12 +7,35 @@
         <p>Time played: {{ time }}</p>
       </div>
 
-      <select (change)="switchColorPalette($event)">
+      <!-- <select (change)="switchColorPalette($event)">
         <option value="normal" [selected]="!highContrast">Normal</option>
         <option value="high-contrast" [selected]="highContrast">
           High Contrast
         </option>
-      </select>
+      </select> -->
+
+      <div class="switch-container">
+        <span (click)="switchColorPalette()">High Contrast</span>
+        <svg
+          (click)="switchColorPalette()"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-circle-half"
+          viewBox="0 0 16 16"
+        >
+          <path d="M8 15V1a7 7 0 1 1 0 14z" />
+        </svg>
+      </div>
+
+      <button class="game-history-button" (click)="openMyScoresModal()">
+        My scores
+      </button>
+      <app-my-scores
+        *ngIf="showMyScoresModal"
+        (closeModal)="onMyScoresModalClose()"
+      ></app-my-scores>
     </div>
 
     <div class="game-box">
@@ -65,5 +88,5 @@
     </div>
   </div>
 
-  <app-my-scores></app-my-scores>
+  <!-- <app-my-scores></app-my-scores> -->
 </div>
